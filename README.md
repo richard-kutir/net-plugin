@@ -1,7 +1,4 @@
-#RhoConnect Plugins in .NET
-
-*This the first of three articles on how RhoConnect can be combined with various platforms such as .NET, Java, and Ruby.*
-
+#Using RhoConnect Plugins with MVC .NET
 
 The Rho platform was developed as a cross-platform solution that offers powerful tools for uniting enterprise data with mobile devices.  One key part of that strategy is the RhoConnect sync server platform.  RhoConnect offers an easy-to-implement way of keeping the data on the mobile device and your back end storage synchronized.
 
@@ -35,7 +32,7 @@ From Motorola:
 > operations) into a backend application, and use a RhoConnect plugin in the 
 > language that matchs your backend application, such as Java or .NET."
 
-A [Rhoconnect plugins](http://docs.rhomobile.com/en/5.0.0/rhoconnect/plugin-intro)  encapsulates the integration of your back end solution and RhoConnect in a library that handles the communication seamlessly.  You simply implement your application's models and through the plugin RhoConnect will automatically synchronize your data across your mobile devices.
+A [Rhoconnect plugin](http://docs.rhomobile.com/en/5.0.0/rhoconnect/plugin-intro)  encapsulates the integration of your back end solution and RhoConnect in a library that handles the communication seamlessly.  You simply implement your application's models and through the plugin RhoConnect will automatically synchronize your data across your mobile devices.
 
 ![RhoConnect plugin](https://s3.amazonaws.com/rhodocs/rhoconnect-service/rhoconnect-plugin-net.jpg) 
 
@@ -51,22 +48,31 @@ To demonstrate RhoConnect plugins we're going to use three different apps:
 
 We're using  Windows 8.1 as the development platform in this exercise.  Visual Studio and RhoStudio are excellent platforms to develop the server and mobile applications respectively.
 
+The tools you'll need are:
+- RhoStudio (5.0)
+- Visual Studio Express (2013 used in this case)
+
 For our example we're going to set up a very simple address book.  It will allow the end user to view a set of addresses, along with names and email addresses associated with those addresses.  We will be able to update this list of names from both the mobile device and the .NET back end.  Let's get started!
 
 ## The Setup
 
 We're going to emulate the Internet on our local computer, meaning our applications will all be on `localhost`.  In a production or staging environment your RhoConnect and MVC app will be hosted on an application server, while your Rhodes app will reside on a mobile device such as an iPhone or Android device.  Let's create a root directory and create all of our applications as subdirectories from this root.
 
-The first thing we need to do is to install the RhoMobile Suite.  This will install this will install the basic toolchain we'll need to build and run RhoMobile apps.  You can download the latest version of RhoMobile Suite at https://developer.motorolasolutions.com/community/rhomobile-suite.
+The first thing we need to do is to install the RhoMobile Suite.  This will install this will install the basic toolchain we'll need to build and run RhoMobile apps.  You can download the latest version of RhoMobile Suite at https://developer.motorolasolutions.com/community/rhomobile-suite.  Follow the installation steps and install all of the components.
 
 ```
 mkdir plugins
 cd plugins
 ```
 
+The source code for all the programs created in this article are available via git at https://github.com/richard-kutir/net-plugin.
+
 ## Our Server Application
 
-In order to demonstate the RhoConnect plugin we're going to create a simple MVC 4 App using Visual Studio.  Open Visual Studio and create a new C# Web Project within our plugins folder.  Name it AddressBook.  Let's also set the default port for our debugging web server to 3000 by right clicking on the project name in our Solution Explorer and choosing Properties > Web > Servers and making our URL http://localhost:3000.  It is important to know what port the application is communicating on.  By setting it we'll know the actual port to use when we configure RhoConnect.
+In order to demonstate the RhoConnect plugin we're going to create a simple MVC 4 web application using Visual Studio.  Open Visual Studio and create a new C# Web Project within our plugins folder.  Name it AddressBook.  Let's also set the default port for our debugging web server to 3000 by right clicking on the project name in our Solution Explorer and choosing Properties > Web > Servers and making our URL http://localhost:3000.  It is important to know what port the application is communicating on.  By setting it we'll know the actual port to use when we configure RhoConnect.
+
+
+![Imgur](http://i.imgur.com/pvrjvMs.png)
 
 Once you've created your project, we need to add a reference to the RhoConnect library that will allow us to connect our .NET application to our mobile client.  You can download the project from Github using:
 
@@ -76,7 +82,9 @@ Once you've created your project, we need to add a reference to the RhoConnect l
 
  Or download the zip file from https://github.com/rhomobile/rhoconnect.NET/archive/master.zip
 
- Inside the project's bin/Release folder is the file RhoconnectNET.dll.  Add a reference to your newly created MVC app to this .DLL by right-clicking on References and selecting "Add Reference..." the click the "Browse" button.  Navigate to where you've downloaded the .DLL and click "Add".  This will add the reference to your application.
+ Inside the project's `bin/Release` folder is the file `RhoconnectNET.dll`.  Add a reference to your newly created MVC app to this .DLL by right-clicking on References and selecting "Add Reference..." the click the "Browse" button.  Navigate to where you've downloaded the .DLL and click "Add".  This will add the reference to your application.
+ 
+ ![Imgur](http://i.imgur.com/pt6pJiF.png)
 
 Now create a new Address class and scaffold the controllers and views.  We'll use this to both allow us to manage the Address database on the server-side as well as facilitate communication with the RhoConnect server.
 
@@ -90,9 +98,9 @@ namespace AddressBook.Models
     public class Address
     {
         public int ID { get; set; }
-        public string name { get; set; }
-        public string address1 { get; set; }
-        public string email { get; set; }
+        public string Name { get; set; }
+        public string Address1 { get; set; }
+        public string Email { get; set; }
 
         public class AddressDBContext : DbContext
         {
@@ -105,6 +113,8 @@ namespace AddressBook.Models
 This is the basic data that we will use with our application: a name, an address, and an email address, all strings.
 
 Using this new model use the `Add > New Scaffolded Item` to add a new `MVC Controller with views, using Entity Framework`.  Select the `Address` class as the model and use the name `AddressesController` for the controller.  This will quickly create the views and the controller to allow our model to be accessible in our application.
+
+![Imgur](http://i.imgur.com/lxGeP3l.png)
 
 Within our controller we implement our connection to RhoConnect by inheriting from an interface named IRhoconnectCRUD.  Add it to the class definition in AddressesController:
 
