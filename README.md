@@ -303,16 +303,16 @@ Open a web browser and navigate to the Address controller in our web app by visi
 
 Click the "Create New" link and create a new address by entering values in the fields:
 
-![Imgur](http://i.imgur.com/Xtwf2vf)
+![Imgur](http://i.imgur.com/Xtwf2vf.png)
 
 
 The mobile device should show 1 entry.  
 
-![Imgur](http://i.imgur.com/rKSMd3r)
+![Imgur](http://i.imgur.com/rKSMd3r.png)
 
 On the mobile app enter:
 
-![Imgur](http://i.imgur.com/MPo3sZa)
+![Imgur](http://i.imgur.com/MPo3sZa.png)
 
 You should now see 2 listings on the mobile app.  
 
@@ -321,7 +321,7 @@ Press the sync button and return to the web app.
 
 A view of the Address records shows the data on the .NET side at `http://localhost:3000`:
 
-![Imgur](http://i.imgur.com/3ciJ6Ap)
+![Imgur](http://i.imgur.com/3ciJ6Ap.png)
 
 That's it! Your .NET `Address` model is exposed to the Rhodes app for synchronization.  Data will automatically be updated on both ends whenever it changes on either end.
 
