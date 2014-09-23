@@ -1,0 +1,26 @@
+#sdk: "C:/MotorolaRhoMobileSuite4.1.0.1/ruby/lib/ruby/gems/1.9.1/gems/rhodes-4.1.0.1"
+sdkversion: 4.1.0
+name: addresses
+version: 1.0
+vendor: rhomobile
+build: debug
+applog: rholog.txt
+iphone:
+  configuration: Release
+  sdk: iphonesimulator7.0
+  provisionprofile:
+  codesignidentity: iPhone Developer
+  entitlements: ""
+  BundleIdentifier: com.rhomobile.addresses
+  BundleURLScheme: addresses
+wp8:
+  productid: 'acf26f90-2562-0132-03b9-56271e562e23'
+android:
+  manifest_template: 'AndroidManifest.erb'
+  version: 2.3.3
+
+wm:
+  #sdk: "MC3000c50b (ARMV4I)"
+  #sdk: "Windows Mobile 6.5.3 Professional DTK (ARMV4I)"
+
+extensions: ["rhoconnect-client"]
