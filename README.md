@@ -38,7 +38,7 @@ A [Rhoconnect plugin](http://docs.rhomobile.com/en/5.0.0/rhoconnect/plugin-intro
 
 ![RhoConnect plugin](https://s3.amazonaws.com/rhodocs/rhoconnect-service/rhoconnect-plugin-net.jpg) 
 
--- image source Motorola: (http://docs.rhomobile.com/en/5.0.0/rhoconnect/net-plugin)
+-- Image from Motorola: (http://docs.rhomobile.com/en/5.0.0/rhoconnect/net-plugin)
 
 
 In this article we're going to examine how to implement a RhoConnect plugin using Microsoft's .NET framework as the back end application.  .NET provides an excellent framework for developing enterprise applications that communicate with a variety of database engines, such as Azure and SQL Server.  The RhoConnect plugin will connect our .NET application data to a Rhodes mobile application transparently.
@@ -73,7 +73,7 @@ The source code for all the programs created in this article are available on Gi
 
 ## Our Server Application
 
-In order to demonstate the RhoConnect plugin we're going to create a simple MVC 4 web application using Visual Studio.  Open Visual Studio and create a new C# Web Project within our plugins folder.  Name it AddressBook.  Let's also set the default port for our debugging web server to 3000 by right clicking on the project name in our Solution Explorer and choosing Properties > Web > Servers and making our URL http://localhost:3000.  It is important to know what port the application is communicating on.  By setting it we'll know the actual port to use when we configure RhoConnect.
+In order to demonstrate the RhoConnect plugin we're going to create a simple MVC 4 web application using Visual Studio.  Open Visual Studio and create a new C# Web Project within our plugins folder.  Name it AddressBook.  Let's also set the default port for our debugging web server to 3000 by right clicking on the project name in our Solution Explorer and choosing Properties > Web > Servers and making our URL http://localhost:3000.  It is important to know what port the application is communicating on.  By setting it we'll know the actual port to use when we configure RhoConnect.
 
 
 ![Imgur](http://i.imgur.com/pvrjvMs.png)
@@ -122,7 +122,7 @@ Using this new model use the `Add > New Scaffolded Item` to add a new `MVC Contr
 
 Within our controller we implement our connection to RhoConnect by inheriting from an interface named IRhoconnectCRUD.  Add it to the class definition in AddressesController:
 
-```
+```#
     public class AddressesController : Controller, IRhoconnectCRUD
 ```
 
@@ -135,7 +135,7 @@ using RhoconnectNET.Controllers;
 
 The interface requires four methods to be implemented.  They provide the basic CRUD (Create, Read, Update, Destroy) functionality that our RhoConnect server will use to communicate with the app.  The signatures for the methods are:
 
-```
+```C#
         jsonresult rhoconnect_query_objects(string partition);
         actionresult rhoconnect_create(string objjson, string partition);
         actionresult rhoconnect_update(dictionary<string, object> changes, string partition);
@@ -144,7 +144,7 @@ The interface requires four methods to be implemented.  They provide the basic C
 
 Note that the `rhoconnect_query_objects` method is what is called when RhoConnect wishes to perform a query on the database.  In our case the query is quite simple: return all of the Addresses:
 
-```
+```C#
         public JsonResult rhoconnect_query_objects(String partition)
         {
             return Json(db.Addresses.ToDictionary(a => a.ID.ToString()));
@@ -155,7 +155,7 @@ Notice that JSON is the primary data format that is used in the communication to
 
 In order to allow RhoConnect to update a record we implement the `rhoconnect_update` method:
 
-```
+```C#
         public ActionResult rhoconnect_update(Dictionary<string, object> changes, String partition)
         {
             int obj_id = Convert.ToInt32(changes["id"]);
@@ -173,7 +173,7 @@ The other methods are implemented in the sample application that is included wit
 
 We also must tell the MVC app how to initiate the communication with the RhoConnect server.  We do this by adding the following methods to the Global.asax.cs file:
 
-```
+```C#
         private void init_rhoconnect()
         {
             // this call allows parsing JSON structures into Objects
@@ -344,6 +344,13 @@ That's it! Your .NET `Address` model is exposed to the Rhodes app for synchroniz
 RhoConnect plugins are a fast way to enable a back end to hook into the RhoMobile framework.  In this example we used .NET MVC as the back end platform, but it could have been any other platform that is supported by the plugin architecture.  
 
 RhoConnect plugins allows you to use a variety of back-end solutions, whatever your legacy platform may be.  This gives you great flexibility in creating mobile applications that access enterprise data.
+
+## About the Author
+<a href="http://stackoverflow.com/users/704832/richard-brown">
+<img src="http://stackoverflow.com/users/flair/704832.png" width="208" height="58" alt="profile for Richard Brown at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Richard Brown at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+</a>
+
+[Richard Brown](mailto:richard@kutirtech.com) is a Senior Developer and Architect at [Kutir Mobility](http://www.kutirmobility.com).  His specialties include iOS, Ruby on Rails, and RhoMobile development.
 
 ## About Us
 
