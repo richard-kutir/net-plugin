@@ -58,16 +58,18 @@ For our example we're going to set up a very simple address book.  It will allow
 
 ## The Setup
 
-We're going to emulate the Internet on our local computer, meaning our applications will all be on `localhost`.  In a production or staging environment your RhoConnect and MVC app will be hosted on an application server, while your Rhodes app will reside on a mobile device such as an iPhone or Android device.  Let's create a root directory and create all of our applications as subdirectories from this root.
+We're going to emulate the Internet on our local computer, meaning our applications will all be on `localhost`.  In a production or staging environment your RhoConnect and MVC app will be hosted on an application server, while your Rhodes app will reside on a mobile device such as an iPhone or Android device.  
 
 The first thing we need to do is to install the RhoMobile Suite.  This will install this will install the basic toolchain we'll need to build and run RhoMobile apps.  You can download the latest version of RhoMobile Suite at https://developer.motorolasolutions.com/community/rhomobile-suite.  Follow the installation steps and install all of the components.
+
+Let's create a root directory and create all of our applications as subdirectories from this root.
 
 ```
 mkdir plugins
 cd plugins
 ```
 
-The source code for all the programs created in this article are available via git at https://github.com/richard-kutir/net-plugin.
+The source code for all the programs created in this article are available on Github at https://github.com/richard-kutir/net-plugin.
 
 ## Our Server Application
 
@@ -80,11 +82,11 @@ Once you've created your project, we need to add a reference to the RhoConnect l
 
 ```
  git clone https://github.com/rhomobile/rhoconnect.NET.git
- ```
+```
 
  Or download the zip file from https://github.com/rhomobile/rhoconnect.NET/archive/master.zip
 
- Inside the project's `bin/Release` folder is the file `RhoconnectNET.dll`.  Add a reference to your newly created MVC app to this .DLL by right-clicking on References and selecting "Add Reference..." the click the "Browse" button.  Navigate to where you've downloaded the .DLL and click "Add".  This will add the reference to your application.
+Inside the project's `bin/Release` folder is the file `RhoconnectNET.dll`.  Add a reference to your newly created MVC app to this .DLL by right-clicking on References and selecting "Add Reference..." the click the "Browse" button.  Navigate to where you've downloaded the .DLL and click "Add".  This will add the reference to your application.
  
  ![Imgur](http://i.imgur.com/pt6pJiF.png)
 
@@ -112,7 +114,7 @@ namespace AddressBook.Models
 }
 ```
 
-This is the basic data that we will use with our application: a name, an address, and an email address, all strings.
+This is the basic schema that we will use with our application: a name, an address, and an email address, all strings.
 
 Using this new model use the `Add > New Scaffolded Item` to add a new `MVC Controller with views, using Entity Framework`.  Select the `Address` class as the model and use the name `AddressesController` for the controller.  This will quickly create the views and the controller to allow our model to be accessible in our application.
 
