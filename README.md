@@ -1,5 +1,7 @@
 #Using RhoConnect Plugins with MVC .NET
 
+*This the second of three articles on how RhoConnect can be combined with various platforms such as [Ruby on Rails](https://developer.motorolasolutions.com/community/rhomobile-suite/rhomobile-community/rhomobile-blogs/blog/2014/08/29/rhoconnect-plugins-in-ruby), .NET, and Java.*
+
 The Rho platform was developed as a cross-platform solution that offers powerful tools for uniting enterprise data with mobile devices.  One key part of that strategy is the RhoConnect sync server platform.  RhoConnect offers an easy-to-implement way of keeping the data on the mobile device and your back end storage synchronized.
 
 As Motorola states:
