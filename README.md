@@ -90,7 +90,7 @@ Now create a new Address class and scaffold the controllers and views.  We'll us
 
 Within our .NET application create a new Address class within the `Models` directory:
 
-```
+```C#
 using System.Data.Entity;
 
 namespace AddressBook.Models
