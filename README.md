@@ -355,3 +355,5 @@ RhoConnect plugins allows you to use a variety of back-end solutions, whatever y
 ## About Us
 
 Facing challenges with your RhoMobile implementation? Kutir Mobility, a Motorola Certified partner, can help you get your app done on time. Get in touch with us today at info@kutirtech.com , no strings attached.
+
+This article is also available at https://developer.motorolasolutions.com/community/rhomobile-suite/rhomobile-community/rhomobile-blogs/blog/2014/09/24/using-rhoconnect-plugins-with-mvc-net
